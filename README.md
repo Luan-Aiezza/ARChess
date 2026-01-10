@@ -1,6 +1,6 @@
 # ARChess – Jogos de tabuleiro em Realidade Aumentada
 
-ARChess é um projeto desenvolvido em Unity que traz o clássico jogo de damas para o universo da Realidade Aumentada (AR), utilizando o AR Foundation. O objetivo é demonstrar habilidades em desenvolvimento de jogos, programação orientada a objetos, interação com AR e boas práticas de arquitetura de código para portfólio.
+ARChess é um projeto desenvolvido em Unity que traz o clássico jogo de damas para o universo da Realidade Aumentada (AR), utilizando o AR Foundation. O objetivo é demonstrar habilidades em desenvolvimento de jogos, programação orientada a objetos, interação com AR e boas práticas de arquitetura de código para portfólio. Esse é um projeto que criei como auto desafio a partir da minha trilha de desenvolvimento AR pela NexVisual. O objetivo é criar uma sala de jogos de tabuleiro, começando pelos mais basicos como Damas, até os mais avançados como Xadrez, utilizando tudo que aprendi e além, na trilha de desenvolvimento AR
 
 ## Funcionalidades
 - **Tabuleiro em AR:** O tabuleiro é posicionado automaticamente sobre uma superfície plana detectada pelo dispositivo.
@@ -51,5 +51,3 @@ Modelos 3D também feitos por mim.
 
 ---
 Este projeto é open source e pode ser utilizado como referência para estudos ou portfólio.
-# ARChess
-Esse é um projeto que criei como auto desafio a partir da minha trilha de desenvolvimento AR pela NexVisual. O objetivo é criar uma sala de jogos de tabuleiro, começando pelos mais basicos como Damas, até os mais avançados como Xadrez, utilizando tudo que aprendi e além, na trilha de desenvolvimento AR
