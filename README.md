@@ -42,10 +42,12 @@ ARChess é um projeto desenvolvido em Unity que traz o clássico jogo de damas p
 - Fácil expansão para outras regras ou jogos de tabuleiro.
 
 ## Screenshots
-(Adicione aqui imagens do app rodando no dispositivo)
+
+<img width="819" height="430" alt="Captura de Tela 2026-01-10 às 00 36 53" src="https://github.com/user-attachments/assets/eeaa3da9-33b6-4b5f-b8d5-8f378fc5f505" />
 
 ## Autor
-Desenvolvido por [Seu Nome].
+Desenvolvido por Luan Gabriel Fernandes Aiezza.
+Modelos 3D também feitos por mim.
 
 ---
 Este projeto é open source e pode ser utilizado como referência para estudos ou portfólio.
