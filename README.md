@@ -1,4 +1,4 @@
-# ARChess – Jogo de Damas em Realidade Aumentada
+# ARChess – Jogos de tabuleiro em Realidade Aumentada
 
 ARChess é um projeto desenvolvido em Unity que traz o clássico jogo de damas para o universo da Realidade Aumentada (AR), utilizando o AR Foundation. O objetivo é demonstrar habilidades em desenvolvimento de jogos, programação orientada a objetos, interação com AR e boas práticas de arquitetura de código para portfólio.
 
