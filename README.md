@@ -1,53 +1,67 @@
-# ARChess – Jogos de tabuleiro em Realidade Aumentada
+# ARChess - Augmented Reality Board Games
 
-ARChess é um projeto desenvolvido em Unity que traz o clássico jogo de damas para o universo da Realidade Aumentada (AR), utilizando o AR Foundation. O objetivo é demonstrar habilidades em desenvolvimento de jogos, programação orientada a objetos, interação com AR e boas práticas de arquitetura de código para portfólio. Esse é um projeto que criei como auto desafio a partir da minha trilha de desenvolvimento AR pela NexVisual. O objetivo é criar uma sala de jogos de tabuleiro, começando pelos mais basicos como Damas, até os mais avançados como Xadrez, utilizando tudo que aprendi e além, na trilha de desenvolvimento AR
+ARChess is a Unity project that brings checkers (draughts) to Augmented Reality using AR Foundation. It started as a self-challenge from my AR development track at NexVisual, with the long-term goal of building an AR board game room, starting with simple games like checkers and moving toward more advanced ones like chess. The project is a portfolio piece that shows game programming, AR interaction and code organization.
 
-## Funcionalidades
-- **Tabuleiro em AR:** O tabuleiro é posicionado automaticamente sobre uma superfície plana detectada pelo dispositivo.
-- **Peças Interativas:** As peças podem ser arrastadas e soltas usando toque (mobile) ou mouse (editor), com validação automática de movimentos válidos e capturas.
-- **Regras de Damas:** Implementação das regras básicas de damas, incluindo movimentos diagonais, capturas e coroação de peças (dama/king).
-- **Gerenciamento de Partida:** O GameManager controla o estado do tabuleiro, movimentação, capturas e reinício do jogo.
-- **Interface Intuitiva:** UI simples para iniciar a experiência após a detecção de uma superfície adequada.
+## Features
 
-## Estrutura do Projeto
-- **Assets/Script/**: Scripts principais do jogo (Board, Piece, GameManager, InitialSetup, StartExperience).
-- **Assets/Scenes/**: Cenas do Unity.
-- **Assets/Models/**: Modelos 3D das peças e tabuleiro.
-- **Assets/Materials/**: Materiais e texturas.
-- **Packages/**: Dependências do AR Foundation e XR Toolkit.
+- **AR board placement:** the app detects horizontal planes with AR Foundation and, once a plane is large enough (configurable `requiredArea`), shows a button to start the experience. The board is spawned at the center of the largest detected plane, aligned to its normal.
+- **Interactive pieces:** pieces are picked up and dragged with touch (Input System `Touchscreen`) or the mouse (Editor/Standalone), then dropped on the nearest board cell.
+- **Checkers rules (basic):** diagonal one-step moves (forward only for regular pieces), single-jump captures over an opponent piece, destination must be empty, and promotion to king when a piece reaches the last row. Invalid moves snap the piece back.
+- **Match management:** `GameManager` spawns 12 white and 12 black pieces on an 8x8 grid, keeps the board state, removes captured pieces and can reset the game.
+- **Custom 3D assets:** board and piece prefabs/materials are included in the project.
 
-## Como Funciona
-1. **Detecção de Superfície:** O app utiliza AR Foundation para detectar planos no ambiente real.
-2. **Início da Experiência:** Após encontrar uma superfície grande o suficiente, o usuário pode iniciar a experiência.
-3. **Tabuleiro em AR:** O tabuleiro é instanciado e alinhado sobre o plano detectado.
-4. **Movimentação das Peças:** O usuário pode selecionar e arrastar peças. O GameManager valida e executa os movimentos conforme as regras.
-5. **Captura e Coroação:** Capturas são automáticas ao pular peças adversárias. Peças que chegam ao final do tabuleiro são promovidas a dama.
+Not implemented yet: turn order, mandatory captures, multi-jump chains and win detection.
 
-## Tecnologias Utilizadas
-- **Unity 2021+**
-- **AR Foundation**
-- **XR Interaction Toolkit**
-- **C#**
+## Architecture
 
-## Como Rodar
-1. Clone este repositório.
-2. Abra a pasta no Unity (versão recomendada: 2021.3 ou superior).
-3. Certifique-se de que o AR Foundation e XR Toolkit estão instalados.
-4. Construa e rode no dispositivo móvel compatível com ARCore (Android) ou ARKit (iOS).
+| Path | Description |
+| --- | --- |
+| `Assets/Script/` | Game scripts: `Board`, `Piece`, `GameManager`, `InitialSetup`, `StartExperience` |
+| `Assets/Scenes/` | Unity scenes (`Main`, `MainScene`) |
+| `Assets/Prefab/` | `boardPrefab`, `WhitePiece`, `BlackPiece` |
+| `Assets/Materials/` | White and black piece materials |
+| `Assets/Models/ARBoard/` | Board model and tile textures |
+| `Assets/MobileARTemplateAssets/` | Unity Mobile AR template assets (UI prompts, plane visualizer, shaders) |
+| `Packages/` | Package manifest (AR Foundation, ARCore, ARKit, XR Interaction Toolkit, URP) |
+| `ProjectSettings/` | Unity project settings |
 
-## Diferenciais Técnicos
-- Código modular e bem documentado.
-- Separação clara entre lógica de jogo, interação AR e UI.
-- Suporte a múltiplas plataformas (Editor e Mobile).
-- Fácil expansão para outras regras ou jogos de tabuleiro.
+Main scripts:
+
+- `InitialSetup`: listens to `ARPlaneManager.planesChanged`, enables the start UI when a plane meets the required area and picks the biggest plane.
+- `StartExperience`: instantiates the board prefab on the chosen plane and notifies `GameManager`.
+- `Board`: 8x8 grid (`cellSize` 0.05 m) with `GetCellCenter(x, y)` to convert cells to world positions.
+- `Piece`: team (`White`/`Black`), king flag, touch/mouse selection via raycast, dragging and snapping to the nearest cell.
+- `GameManager`: piece spawning, board state, move validation (`TryMovePiece`/`IsValidMove`), capture, crowning and `ResetGame`.
+
+## Tech stack
+
+![Unity](https://img.shields.io/badge/Unity_2022.3-000000?style=for-the-badge&logo=unity&logoColor=white)
+![C#](https://img.shields.io/badge/C%23-512BD4?style=for-the-badge&logo=csharp&logoColor=white)
+![AR Foundation](https://img.shields.io/badge/AR_Foundation_5.2-000000?style=for-the-badge&logo=unity&logoColor=white)
+![ARCore](https://img.shields.io/badge/ARCore-4285F4?style=for-the-badge&logo=google&logoColor=white)
+![ARKit](https://img.shields.io/badge/ARKit-000000?style=for-the-badge&logo=apple&logoColor=white)
+
+Also: XR Interaction Toolkit 3.1.2, Input System 1.14.0 and Universal Render Pipeline 14.0.12.
+
+## Running the project
+
+Requirements:
+
+- Unity 2022.3.62f3 (the version the project was created with)
+- Android device with ARCore support (minimum SDK 30) or iOS device with ARKit (iOS 12.0+ target in project settings)
+
+Steps:
+
+1. Clone the repository: `git clone https://github.com/Luan-Aiezza/ARChess.git`
+2. Open the folder in Unity Hub with Unity 2022.3.62f3 and let it resolve the packages.
+3. Open a scene from `Assets/Scenes/`.
+4. In Build Settings, select Android or iOS and build/run on a compatible device.
+5. Point the device at a flat surface; when the start button appears, tap it to place the board and play.
 
 ## Screenshots
 
-<img width="819" height="430" alt="Captura de Tela 2026-01-10 às 00 36 53" src="https://github.com/user-attachments/assets/eeaa3da9-33b6-4b5f-b8d5-8f378fc5f505" />
+<img width="819" height="430" alt="ARChess screenshot" src="https://github.com/user-attachments/assets/eeaa3da9-33b6-4b5f-b8d5-8f378fc5f505" />
 
-## Autor
-Desenvolvido por Luan Gabriel Fernandes Aiezza.
-Modelos 3D também feitos por mim.
+## Author
 
----
-Este projeto é open source e pode ser utilizado como referência para estudos ou portfólio.
+Developed by [Luan Gabriel Fernandes Aiezza](https://github.com/Luan-Aiezza). The 3D models were also made by me.
